@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,36 @@ public class Building : MonoBehaviour
 {
 
     Renderer myRenderer;
-    private int MHP = 1000, CHP = 1000, Level = 1;
+    private int MHP = 1000, CHP = 1000, _level = 0;
+
+    public int Level
+    {
+        get { return _level + 1; }
+        set {
+            if (current_active_model) current_active_model.SetActive(false);
+            _level = value - 1;
+            current_active_model = all_levels[_level];
+            current_active_model.SetActive(true);
+            myRenderer = current_active_model.GetComponent<Renderer>();
+        }
+    }
+
     private bool destroyed = false;
 
+    List<GameObject> all_levels;
+    GameObject current_active_model;
     // Start is called before the first frame update
     void Start()
-    {
-        myRenderer = GetComponent<Renderer>();
+    { all_levels = new List<GameObject>();
+        for (int i = 0; i<transform.childCount;i++)
+        {
+            GameObject child = transform.GetChild(i).gameObject;
+            child.SetActive(false);
+            all_levels.Add(child);
+
+        }
+
+        Level = 1;
 
       
     }
@@ -34,6 +58,13 @@ public class Building : MonoBehaviour
             destroyed = true;
             myRenderer.material.color = Color.red;
         }
+    }
+
+    internal void levelUp()
+    {
+
+        Level++;
+
     }
 
     internal void repair(int how_much_heal)
