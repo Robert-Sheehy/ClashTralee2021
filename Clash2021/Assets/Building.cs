@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+public class Building : MonoBehaviour,IHealth
 {
 
     Renderer myRenderer;
@@ -49,7 +49,7 @@ public class Building : MonoBehaviour
 
 
 
-    internal void takeDamage(int how_much_damage)
+    public void takeDamage(int how_much_damage)
     {
         myRenderer.material.color = Color.blue;
         CHP -= how_much_damage;
@@ -67,7 +67,7 @@ public class Building : MonoBehaviour
 
     }
 
-    internal void repair(int how_much_heal)
+    public void repair(int how_much_heal)
     {
         CHP += how_much_heal;
         if (CHP > MHP)
