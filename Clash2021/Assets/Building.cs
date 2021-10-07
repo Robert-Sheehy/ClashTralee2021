@@ -8,7 +8,7 @@ public class Building : MonoBehaviour,IHealth
 
     Renderer myRenderer;
     private int MHP = 1000, CHP = 1000, _level = 0;
-
+    
     public int Level
     {
         get { return _level + 1; }
@@ -20,6 +20,8 @@ public class Building : MonoBehaviour,IHealth
             myRenderer = current_active_model.GetComponent<Renderer>();
         }
     }
+
+    public float Melee_distance { get { return 5.0f; } }
 
     private bool destroyed = false;
 
