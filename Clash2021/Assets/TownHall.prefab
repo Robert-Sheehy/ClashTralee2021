@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< HEAD
+=======
+--- !u!114 &1068635929895336738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306499927897471709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4228a3693c70d646b8b76a6176d7804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> upstream/main
 --- !u!1 &2737663425688499363
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,6 +24,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 351976058937754289}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 6533060134973415353}
+>>>>>>> upstream/main
   m_Layer: 0
   m_Name: TownHall
   m_TagString: Untagged
@@ -36,13 +55,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &1068635929895336738
+=======
+--- !u!114 &6533060134973415353
+>>>>>>> upstream/main
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 2306499927897471709}
+=======
+  m_GameObject: {fileID: 2737663425688499363}
+>>>>>>> upstream/main
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4228a3693c70d646b8b76a6176d7804, type: 3}
