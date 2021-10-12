@@ -17,5 +17,6 @@ public class BuildingHealthTestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.D)) ourBuilding.takeDamage(70);
         if (Input.GetKeyDown("h")) ourBuilding.repair(100);
+        if (Input.GetKeyDown(KeyCode.KeypadPlus)) ourBuilding.levelUp();
     }
 }
