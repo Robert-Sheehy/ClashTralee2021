@@ -22,4 +22,14 @@ public class Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T)) Instantiate(townhall_template,
                            new Vector3(Random.Range(-1000f, 1000f), 0, Random.Range(-1000f, 1000f)), Quaternion.identity);
     }
+
+    public void AOE_Attack(Vector3 position, float radius, int damage)
+    {
+        Collider[] colliders = Physics.OverlapSphere(projectile, radius);
+        foreach (Collider hit in colliders)
+        {
+            CHP - 5;
+        }
+    }
+
 }
