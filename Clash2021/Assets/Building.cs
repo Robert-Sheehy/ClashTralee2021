@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour,IHealth
+public class Building  : MonoBehaviour,IHealth
 {
 
     Renderer myRenderer;
