@@ -16,6 +16,7 @@ public class CharacterScript : MonoBehaviour,IHealth
 
     Vector3 velocity;
     private float character_speed = 3f;
+    internal float Attack_Distance { get { return 5.0f; } }
 
     // Start is called before the first frame update
     void Start()
