@@ -27,6 +27,8 @@ public class Building : MonoBehaviour,IHealth
 
     List<GameObject> all_levels;
     GameObject current_active_model;
+    private Manager theManager;
+
     // Start is called before the first frame update
     void Start()
     { all_levels = new List<GameObject>();
@@ -59,7 +61,14 @@ public class Building : MonoBehaviour,IHealth
         {
             destroyed = true;
             myRenderer.material.color = Color.red;
+            theManager.Im_Dead(this);
+            Destroy(gameObject);
         }
+    }
+
+    internal void ImtheMan(Manager manager)
+    {
+        theManager = manager;
     }
 
     internal void levelUp()
