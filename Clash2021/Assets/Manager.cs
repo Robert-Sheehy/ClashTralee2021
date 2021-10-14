@@ -50,6 +50,22 @@ public class Manager : MonoBehaviour
         }
     }
 
+    internal Building whats_my_target(Witch witch)
+    {
+        float distance = 100000f;
+        Building nearest = null;
+        foreach (Building next_building in allBuildings)
+        {
+            if (Vector3.Distance(witch.transform.position, next_building.transform.position) < distance)
+            {
+                distance = Vector3.Distance(witch.transform.position, next_building.transform.position);
+                nearest = next_building;
+            }
+        }
+
+        return nearest;
+    }
+
     internal void Im_Dead(Building building)
     {
         allBuildings.Remove(building);
