@@ -3,34 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterScript : MonoBehaviour,IHealth
+public class Witch : MonoBehaviour, IHealth
 {
-    enum Character_states { Idle, Move_to_Target, Attack, Death}
-    int DPS = 10;
-    float attack_time_interval = 0.5f;
+    enum Character_states { Idle, Move_to_Target, Attack, Death }
+    int DPS = 100;
+    float attack_time_interval = 0.7f;
     float attack_timer;
+    float spawn_timer;
+    float spawn_timer_interval = 6f;
+
     Character_states my_state = Character_states.Idle;
 
-    private int MHP = 1000, CHP = 1000, _level = 0;
+    private int MHP = 300, CHP = 300, level = 0;
     Building current_target;
 
     Vector3 velocity;
-    private float character_speed = 3f;
+    private float character_speed = 12f;
+    private bool destroyed = false;
+    public float attack_distance { get { return 12.0f; } }
     private Manager theManager;
-
-    // Start is called before the first frame update
     void Start()
     {
-    
+        level = 1;
+        MHP = 300;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         switch (my_state)
         {
 
             case Character_states.Idle:
+
                 current_target = theManager.whats_my_target(this);
 
                 if (current_target)
@@ -40,8 +46,7 @@ public class CharacterScript : MonoBehaviour,IHealth
 
             case Character_states.Move_to_Target:
 
-
-                if (within_melee_range(current_target))
+                if (within_attack_range(current_target))
                 {
                     my_state = Character_states.Attack;
                     attack_timer = 0;
@@ -54,9 +59,9 @@ public class CharacterScript : MonoBehaviour,IHealth
             case Character_states.Attack:
 
                 if (attack_timer <= 0f)
-                {  
+                {
                     current_target.takeDamage((int)((float)DPS * attack_time_interval));
-     
+
                     attack_timer = attack_time_interval;
                 }
 
@@ -66,16 +71,13 @@ public class CharacterScript : MonoBehaviour,IHealth
 
 
             case Character_states.Death:
-
+                if (destroyed = true)
+                {
+                    Destroy(gameObject);
+                }
 
                 break;
-
-
-
         }
-
-
-
 
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -86,37 +88,12 @@ public class CharacterScript : MonoBehaviour,IHealth
                 assign_target(current_target);
 
             }
-        }
-
-
-
-
-
-
-
-
-
-            if (Input.GetKey(KeyCode.DownArrow)) velocity = Vector3.back;
-            if (Input.GetKey(KeyCode.LeftArrow)) velocity = Vector3.left;
-            if (Input.GetKey(KeyCode.RightArrow)) velocity = Vector3.right;
-            if (Input.GetKey(KeyCode.UpArrow)) velocity = Vector3.forward;
-        
-    }
-
-    internal void is_destroyed(Building building)
-    {
-        if (building == current_target)
-            my_state = Character_states.Idle;
-    }
-
-    internal void ImtheMan(Manager manager)
-    {
-        theManager = manager;
+        } 
     }
 
     public void assign_target(Building current_target)
     {
-        if ((my_state == Character_states.Idle)  || (my_state == Character_states.Move_to_Target))
+        if ((my_state == Character_states.Idle) || (my_state == Character_states.Move_to_Target))
         {
             Vector3 from_me_to_building = current_target.transform.position - transform.position;
             Vector3 direction = from_me_to_building.normalized;
@@ -125,18 +102,22 @@ public class CharacterScript : MonoBehaviour,IHealth
         }
     }
 
-    private bool within_melee_range(Building current_target)
+    internal void is_destroyed(Building building)
     {
-        return (Vector3.Distance(transform.position, current_target.transform.position) < current_target.Melee_distance);
+        if (building == current_target)
+            my_state = Character_states.Idle;
     }
-
-    public void repair(int v)
+    private bool within_attack_range(Building current_target)
     {
-        throw new System.NotImplementedException();
+        return (Vector3.Distance(transform.position, current_target.transform.position) < current_target.attack_distance);
     }
 
     public void takeDamage(int v)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
+    }
+    public void repair(int v)
+    {
+        throw new NotImplementedException();
     }
 }
