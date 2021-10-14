@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour,IHealth
+public class Building  : MonoBehaviour,IHealth
 {
 
     Renderer myRenderer;
-    private int MHP = 1000, CHP = 100, _level = 0;
+    private int MHP = 1000, CHP = 1000, _level = 0;
     
     public int Level
     {
@@ -21,14 +21,12 @@ public class Building : MonoBehaviour,IHealth
         }
     }
 
-    public float Melee_distance { get { return 10.0f; } }
+    public float Melee_distance { get { return 5.0f; } }
 
     private bool destroyed = false;
 
     List<GameObject> all_levels;
     GameObject current_active_model;
-    private Manager theManager;
-
     // Start is called before the first frame update
     void Start()
     { all_levels = new List<GameObject>();
@@ -61,14 +59,7 @@ public class Building : MonoBehaviour,IHealth
         {
             destroyed = true;
             myRenderer.material.color = Color.red;
-            theManager.Im_Dead(this);
-            Destroy(gameObject);
         }
-    }
-
-    internal void ImtheMan(Manager manager)
-    {
-        theManager = manager;
     }
 
     internal void levelUp()
