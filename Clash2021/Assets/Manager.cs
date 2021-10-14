@@ -21,5 +21,6 @@ public class Manager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T)) Instantiate(townhall_template,
                            new Vector3(Random.Range(-1000f, 1000f), 0, Random.Range(-1000f, 1000f)), Quaternion.identity);
+
     }
 }
