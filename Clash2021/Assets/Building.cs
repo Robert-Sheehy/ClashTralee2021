@@ -3,20 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<< HEAD
-public class Building : MonoBehaviour
-=======
 public class Building : MonoBehaviour,IHealth
->>>>>>> upstream/main
 {
 
     Renderer myRenderer;
-    private int MHP = 1000, CHP = 1000, _level = 0;
-<<<<<<< HEAD
-
-=======
+    private int MHP = 1000, CHP = 100, _level = 0;
     
->>>>>>> upstream/main
     public int Level
     {
         get { return _level + 1; }
@@ -29,11 +21,8 @@ public class Building : MonoBehaviour,IHealth
         }
     }
 
-<<<<<<< HEAD
-=======
-    public float Melee_distance { get { return 5.0f; } }
+    public float Melee_distance { get { return 10.0f; } }
 
->>>>>>> upstream/main
     private bool destroyed = false;
 
     List<GameObject> all_levels;
@@ -62,11 +51,7 @@ public class Building : MonoBehaviour,IHealth
 
 
 
-<<<<<<< HEAD
-    internal void takeDamage(int how_much_damage)
-=======
     public void takeDamage(int how_much_damage)
->>>>>>> upstream/main
     {
         myRenderer.material.color = Color.blue;
         CHP -= how_much_damage;
@@ -84,11 +69,7 @@ public class Building : MonoBehaviour,IHealth
 
     }
 
-<<<<<<< HEAD
-    internal void repair(int how_much_heal)
-=======
     public void repair(int how_much_heal)
->>>>>>> upstream/main
     {
         CHP += how_much_heal;
         if (CHP > MHP)

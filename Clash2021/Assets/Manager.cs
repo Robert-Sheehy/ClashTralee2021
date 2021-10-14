@@ -20,6 +20,6 @@ public class Manager : MonoBehaviour
                            new Vector3(Random.Range(-10f,10f),0, Random.Range(-10f, 10f)), Quaternion.identity);
 
         if (Input.GetKeyDown(KeyCode.T)) Instantiate(townhall_template,
-                           new Vector3(Random.Range(-1000f, 1000f), 0, Random.Range(-1000f, 1000f)), Quaternion.identity);
+                           new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f)), Quaternion.identity);
     }
 }

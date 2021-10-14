@@ -15,7 +15,7 @@ public class CharacterScript : MonoBehaviour,IHealth
     Building current_target;
 
     Vector3 velocity;
-    private float character_speed = 3f;
+    private float character_speed = 10f;
 
     // Start is called before the first frame update
     void Start()
