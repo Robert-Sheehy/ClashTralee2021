@@ -10,10 +10,10 @@ public class CharacterScript : MonoBehaviour,IHealth
     float attack_time_interval = 0.5f;
     float attack_timer;
     Character_states my_state = Character_states.Idle;
-
+    Renderer myRenderer;
     private int MHP = 1000, CHP = 1000, _level = 0;
     Building current_target;
-
+    bool dead;
     Vector3 velocity;
     private float character_speed = 3f;
 
@@ -119,8 +119,14 @@ public class CharacterScript : MonoBehaviour,IHealth
         throw new System.NotImplementedException();
     }
 
-    public void takeDamage(int v)
+    public void takeDamage(int how_much_damage)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Im being damaged");
+        CHP -= how_much_damage;
+        if (CHP <= 0)
+        {
+            dead= true;
+            Debug.Log("Dead");
+        }
     }
 }

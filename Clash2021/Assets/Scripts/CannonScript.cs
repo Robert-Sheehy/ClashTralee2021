@@ -6,9 +6,10 @@ using UnityEngine;
 public class CannonScript : MonoBehaviour, IHealth
 {
     enum building_states { Idle, Attack, Death }
-    int DPS = 10;
+    int DPS = 100;
     float attack_time_interval = 0.5f;
     float attack_timer;
+    float CannonRange = 7.0f;
     building_states my_state = building_states.Idle;
 
     private int MHP = 1000, CHP = 1000, _level = 0;
@@ -28,6 +29,11 @@ public class CannonScript : MonoBehaviour, IHealth
 
             case building_states.Idle:
 
+                if ((current_target) && within_attack_range(current_target))
+                {
+                    my_state = building_states.Attack;
+                    attack_timer = 0;
+                }
 
                 break;
 
@@ -37,6 +43,13 @@ public class CannonScript : MonoBehaviour, IHealth
                 {
                     current_target.takeDamage((int)((float)DPS * attack_time_interval));
                     attack_timer = attack_time_interval;
+
+                  while(within_attack_range(current_target))
+                    {
+                        Vector3 from_me_to_Character = current_target.transform.position - transform.position;
+                        Vector3 direction = from_me_to_Character.normalized;
+                        transform.forward = direction;
+                    }
                 }
 
                 attack_timer -= Time.deltaTime;
@@ -80,7 +93,7 @@ public class CannonScript : MonoBehaviour, IHealth
 
     private bool within_attack_range(CharacterScript current_target)
     {
-        return (Vector3.Distance(transform.position, current_target.transform.position) < current_target.Attack_Distance);
+        return (Vector3.Distance(transform.position, current_target.transform.position) < CannonRange);
     
     }
 
