@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Building  : MonoBehaviour,IHealth
+
+
 {
 
     Renderer myRenderer;
     private int MHP = 1000, CHP = 1000, _level = 0;
-    
+
     public int Level
     {
         get { return _level + 1; }
@@ -27,6 +30,11 @@ public class Building  : MonoBehaviour,IHealth
 
     List<GameObject> all_levels;
     GameObject current_active_model;
+
+    private Manager theManager;
+    internal float attack_distance;
+
+
     // Start is called before the first frame update
     void Start()
     { all_levels = new List<GameObject>();
@@ -51,7 +59,9 @@ public class Building  : MonoBehaviour,IHealth
 
 
 
+
     public void takeDamage(int how_much_damage)
+
     {
         myRenderer.material.color = Color.blue;
         CHP -= how_much_damage;
@@ -70,6 +80,7 @@ public class Building  : MonoBehaviour,IHealth
     }
 
     public void repair(int how_much_heal)
+
     {
         CHP += how_much_heal;
         if (CHP > MHP)
@@ -78,4 +89,16 @@ public class Building  : MonoBehaviour,IHealth
             myRenderer.material.color = Color.white;
         }
     }
+
+
+    void IHealth.takeDamage(int v)
+    {
+        throw new NotImplementedException();
+    }
+
+    void IHealth.repair(int v)
+    {
+        throw new NotImplementedException();
+    }
 }
+
