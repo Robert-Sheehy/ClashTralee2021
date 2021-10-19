@@ -16,7 +16,6 @@ public class CharacterScript : MonoBehaviour,IHealth
 
     Vector3 velocity;
     private float character_speed = 3f;
-    private Manager theManager;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +30,7 @@ public class CharacterScript : MonoBehaviour,IHealth
         {
 
             case Character_states.Idle:
-                current_target = theManager.whats_my_target(this);
 
-                if (current_target)
-                    assign_target(current_target);
 
                 break;
 
@@ -54,9 +50,8 @@ public class CharacterScript : MonoBehaviour,IHealth
             case Character_states.Attack:
 
                 if (attack_timer <= 0f)
-                {  
+                {
                     current_target.takeDamage((int)((float)DPS * attack_time_interval));
-     
                     attack_timer = attack_time_interval;
                 }
 
@@ -101,17 +96,6 @@ public class CharacterScript : MonoBehaviour,IHealth
             if (Input.GetKey(KeyCode.RightArrow)) velocity = Vector3.right;
             if (Input.GetKey(KeyCode.UpArrow)) velocity = Vector3.forward;
         
-    }
-
-    internal void is_destroyed(Building building)
-    {
-        if (building == current_target)
-            my_state = Character_states.Idle;
-    }
-
-    internal void ImtheMan(Manager manager)
-    {
-        theManager = manager;
     }
 
     public void assign_target(Building current_target)
