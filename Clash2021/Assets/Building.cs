@@ -69,7 +69,14 @@ public class Building  : MonoBehaviour,IHealth
         {
             destroyed = true;
             myRenderer.material.color = Color.red;
+            theManager.Im_Dead(this);
+            Destroy(gameObject);
         }
+    }
+
+    internal void ImtheMan(Manager manager)
+    {
+        theManager = manager;
     }
 
     internal void levelUp()
@@ -91,14 +98,6 @@ public class Building  : MonoBehaviour,IHealth
     }
 
 
-    void IHealth.takeDamage(int v)
-    {
-        throw new NotImplementedException();
-    }
 
-    void IHealth.repair(int v)
-    {
-        throw new NotImplementedException();
-    }
 }
 
