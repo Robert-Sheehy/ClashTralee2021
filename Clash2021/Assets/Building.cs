@@ -3,20 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<< HEAD
-public class Building : MonoBehaviour
-=======
 public class Building : MonoBehaviour,IHealth
->>>>>>> upstream/main
+
 {
 
     Renderer myRenderer;
     private int MHP = 1000, CHP = 1000, _level = 0;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> upstream/main
     public int Level
     {
         get { return _level + 1; }
@@ -28,17 +21,14 @@ public class Building : MonoBehaviour,IHealth
             myRenderer = current_active_model.GetComponent<Renderer>();
         }
     }
-
-<<<<<<< HEAD
-=======
     public float Melee_distance { get { return 5.0f; } }
 
->>>>>>> upstream/main
     private bool destroyed = false;
 
     List<GameObject> all_levels;
     GameObject current_active_model;
     private Manager theManager;
+    internal float attack_distance;
 
     // Start is called before the first frame update
     void Start()
@@ -61,14 +51,8 @@ public class Building : MonoBehaviour,IHealth
     {
         
     }
-
-
-
-<<<<<<< HEAD
     internal void takeDamage(int how_much_damage)
-=======
-    public void takeDamage(int how_much_damage)
->>>>>>> upstream/main
+
     {
         myRenderer.material.color = Color.blue;
         CHP -= how_much_damage;
@@ -92,12 +76,7 @@ public class Building : MonoBehaviour,IHealth
         Level++;
 
     }
-
-<<<<<<< HEAD
     internal void repair(int how_much_heal)
-=======
-    public void repair(int how_much_heal)
->>>>>>> upstream/main
     {
         CHP += how_much_heal;
         if (CHP > MHP)
@@ -105,5 +84,15 @@ public class Building : MonoBehaviour,IHealth
             CHP = MHP;
             myRenderer.material.color = Color.white;
         }
+    }
+
+    void IHealth.takeDamage(int v)
+    {
+        throw new NotImplementedException();
+    }
+
+    void IHealth.repair(int v)
+    {
+        throw new NotImplementedException();
     }
 }
