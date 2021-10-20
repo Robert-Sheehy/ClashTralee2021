@@ -9,7 +9,6 @@ public class Manager : MonoBehaviour
     public GameObject townhall_template;
     private List<CharacterScript> allUnits;
     private List<Building> allBuildings;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +63,7 @@ public class Manager : MonoBehaviour
         }
 
         return nearest;
+
     }
 
     internal void Im_Dead(Building building)
