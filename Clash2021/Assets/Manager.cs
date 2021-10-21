@@ -37,6 +37,11 @@ public class Manager : MonoBehaviour
         allBuildings = new List<Building>();
     }
 
+    internal Building whats_my_target(Witch witch)
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -97,7 +102,7 @@ public class Manager : MonoBehaviour
         return nearest;
     }
 
-    public void AOE_Attack(Vector3 position, float radius, int damage)
+    public void AOE_Attack(Vector3 position, float radius, int damage, bool isBuilding)
     {
       
 

@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character_prefab_template: {fileID: 6002723005628740230, guid: ef01da653ebeb694d844ab39798efa7d, type: 3}
-  townhall_template: {fileID: 8511044808629253609, guid: 2a756fe66d2f999429dcf1a3419c203f, type: 3}
+  townhall_template: {fileID: 4782293019790099236, guid: 5aef40c0a6bc7be4ebe11552a0e35c14, type: 3}
 --- !u!4 &1078883250
 Transform:
   m_ObjectHideFlags: 0
