@@ -7,20 +7,44 @@ public class Manager : MonoBehaviour
 
     public GameObject character_prefab_template;
     public GameObject townhall_template;
-    private List<CharacterScript> allUnits;
-    private List<Building> allBuildings;
+
+
+    List<CharacterScript> allUnits;
+    List<Building> allBuildings;
+
+    internal void AddTHAt(Vector3 position)
+    {
+        GameObject new_buildingGO = Instantiate(townhall_template,
+                position, Quaternion.identity);
+        Building new_buildingScript = new_buildingGO.GetComponent<Building>();
+
+        if (new_buildingScript)
+        {
+            new_buildingScript.ImtheMan(this);
+            allBuildings.Add(new_buildingScript);
+        }
+    }
+
+    internal void AddChar(Vector3 vector3)
+    {
+        throw new System.NotImplementedException();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        allBuildings = new List<Building>();
         allUnits = new List<CharacterScript>();
+        allBuildings = new List<Building>();
+    }
+
+    internal Building whats_my_target(Witch witch)
+    {
+        throw new System.NotImplementedException();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.S))
         {
            GameObject new_characterGO = Instantiate(character_prefab_template,
@@ -48,22 +72,11 @@ public class Manager : MonoBehaviour
                  allBuildings.Add(new_buildingScript);
             }
         }
-    }
-
-    internal Building whats_my_target(Witch witch)
-    {
-        float distance = 100000f;
-        Building nearest = null;
-        foreach (Building next_building in allBuildings)
+        
+        if(Input.GetKeyDown(KeyCode.X))
         {
-            if (Vector3.Distance(witch.transform.position, next_building.transform.position) < distance)
-            {
-                distance = Vector3.Distance(witch.transform.position, next_building.transform.position);
-                nearest = next_building;
-            }
+          
         }
-
-        return nearest;
     }
 
     internal void Im_Dead(Building building)
@@ -86,7 +99,28 @@ public class Manager : MonoBehaviour
             }
         }
 
-        return nearest;
+        return   nearest;
+    }
+
+    public void AOE_Attack(Vector3 position, float radius, int damage, bool isBuilding)
+    {
+      
+
+        foreach (Building next_building in allBuildings)
+        {
+            if ( Vector3.Distance(position, next_building.transform.position) < radius)
+            {
+                 next_building.takeDamage(damage);
+            }
+            
+        }
+        foreach (CharacterScript character in allUnits)
+        {
+            if (Vector3.Distance(position, character.transform.position) < radius)
+            {
+                character.takeDamage(damage);
+            }
+        }
 
     }
 
