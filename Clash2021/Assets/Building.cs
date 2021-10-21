@@ -101,6 +101,5 @@ public class Building  : Unit
     {
         throw new NotImplementedException();
     }
-
 }
 
