@@ -7,20 +7,20 @@ public class Manager : MonoBehaviour
 
     public GameObject character_prefab_template;
     public GameObject townhall_template;
+    private List<CharacterScript> allUnits;
+    private List<Building> allBuildings;
 
-
-    List<CharacterScript> allUnits;
-    List<Building> allBuildings;
     // Start is called before the first frame update
     void Start()
     {
-        allUnits = new List<CharacterScript>();
         allBuildings = new List<Building>();
+        allUnits = new List<CharacterScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.S))
         {
            GameObject new_characterGO = Instantiate(character_prefab_template,
@@ -50,6 +50,22 @@ public class Manager : MonoBehaviour
         }
     }
 
+    internal Building whats_my_target(Witch witch)
+    {
+        float distance = 100000f;
+        Building nearest = null;
+        foreach (Building next_building in allBuildings)
+        {
+            if (Vector3.Distance(witch.transform.position, next_building.transform.position) < distance)
+            {
+                distance = Vector3.Distance(witch.transform.position, next_building.transform.position);
+                nearest = next_building;
+            }
+        }
+
+        return nearest;
+    }
+
     internal void Im_Dead(Building building)
     {
         allBuildings.Remove(building);
@@ -71,5 +87,6 @@ public class Manager : MonoBehaviour
         }
 
         return nearest;
+
     }
 }
