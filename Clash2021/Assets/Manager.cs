@@ -7,20 +7,19 @@ public class Manager : MonoBehaviour
 
     public GameObject character_prefab_template;
     public GameObject townhall_template;
-
-
-    List<CharacterScript> allUnits;
-    List<Building> allBuildings;
+    private List<CharacterScript> allUnits;
+    private List<Building> allBuildings;
     // Start is called before the first frame update
     void Start()
     {
-        allUnits = new List<CharacterScript>();
         allBuildings = new List<Building>();
+        allUnits = new List<CharacterScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.S))
         {
            GameObject new_characterGO = Instantiate(character_prefab_template,
@@ -64,6 +63,7 @@ public class Manager : MonoBehaviour
         }
 
         return nearest;
+
     }
 
     internal void Im_Dead(Building building)
@@ -87,5 +87,6 @@ public class Manager : MonoBehaviour
         }
 
         return nearest;
+
     }
 }
