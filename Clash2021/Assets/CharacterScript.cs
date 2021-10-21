@@ -10,12 +10,13 @@ public class CharacterScript : MonoBehaviour,IHealth
     float attack_time_interval = 0.5f;
     float attack_timer;
     Character_states my_state = Character_states.Idle;
-
+    Renderer myRenderer;
     private int MHP = 1000, CHP = 1000, _level = 0;
     Building current_target;
-
+    bool dead;
     Vector3 velocity;
     private float character_speed = 3f;
+    private Manager theManager;
 
     // Start is called before the first frame update
     void Start()
@@ -30,30 +31,51 @@ public class CharacterScript : MonoBehaviour,IHealth
         {
 
             case Character_states.Idle:
+                
+                if (current_target) my_state = Character_states.Move_to_Target;
+                else
+                {
+                    current_target = theManager.whats_my_target(this);
+                    if (current_target != null)
+                    {
+                        Vector3 from_me_to_target = current_target.transform.position - transform.position;
+                        velocity = character_speed * from_me_to_target.normalized;
+                        transform.LookAt(current_target.transform);
+                        my_state = Character_states.Move_to_Target;
+                    }
 
+                }
 
                 break;
 
             case Character_states.Move_to_Target:
 
-
-                if (within_melee_range(current_target))
-                {
-                    my_state = Character_states.Attack;
-                    attack_timer = 0;
-                    velocity = Vector3.zero;
-                }
+                if (current_target!=null)
+                        if (within_melee_range(current_target))
+                        {
+                            my_state = Character_states.Attack;
+                            attack_timer = 0;
+                            velocity = Vector3.zero;
+                        }
+                    else
+                    {
+                        my_state = Character_states.Idle;
+                    }
 
                 transform.position += velocity * Time.deltaTime;
                 break;
 
             case Character_states.Attack:
 
-                if (attack_timer <= 0f)
-                {
-                    current_target.takeDamage((int)((float)DPS * attack_time_interval));
-                    attack_timer = attack_time_interval;
-                }
+                if (current_target)
+                    if (attack_timer <= 0f)
+                    {
+                        current_target.takeDamage((int)((float)DPS * attack_time_interval));
+                        attack_timer = attack_time_interval;
+                    }
+
+                    else
+                        my_state = Character_states.Idle;
 
                 attack_timer -= Time.deltaTime;
 
@@ -98,6 +120,17 @@ public class CharacterScript : MonoBehaviour,IHealth
         
     }
 
+    internal void is_destroyed(Building building)
+    {
+        if (current_target == building)
+            my_state = Character_states.Idle;
+    }
+
+    internal void ImtheMan(Manager manager)
+    {
+        theManager = manager;
+    }
+
     public void assign_target(Building current_target)
     {
         if ((my_state == Character_states.Idle)  || (my_state == Character_states.Move_to_Target))
@@ -119,8 +152,14 @@ public class CharacterScript : MonoBehaviour,IHealth
         throw new System.NotImplementedException();
     }
 
-    public void takeDamage(int v)
+    public void takeDamage(int how_much_damage)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Im being damaged");
+        CHP -= how_much_damage;
+        if (CHP <= 0)
+        {
+            dead= true;
+            Debug.Log("Dead");
+        }
     }
 }
