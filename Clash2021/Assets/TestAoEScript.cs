@@ -29,6 +29,6 @@ public class TestAoEScript : MonoBehaviour
 
 
         if (Input.GetKeyDown(KeyCode.Return))
-            theManager.AOE_Attack(new Vector3(0, 0, 0), 15, 50);
+            theManager.AOE_Attack(new Vector3(0, 0, 0), 15, 50,true);
     }
 }

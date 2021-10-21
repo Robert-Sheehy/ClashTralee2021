@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Building : MonoBehaviour,IHealth
+public class Building  : MonoBehaviour,IHealth
+
 
 {
 
@@ -23,14 +24,16 @@ public class Building : MonoBehaviour,IHealth
         }
     }
 
-
     public float Melee_distance { get { return 5.0f; } }
 
     private bool destroyed = false;
 
     List<GameObject> all_levels;
     GameObject current_active_model;
+
     private Manager theManager;
+    internal float attack_distance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -83,7 +86,6 @@ public class Building : MonoBehaviour,IHealth
 
     }
 
-
     public void repair(int how_much_heal)
 
     {
@@ -94,4 +96,8 @@ public class Building : MonoBehaviour,IHealth
             myRenderer.material.color = Color.white;
         }
     }
+
+
+
 }
+
