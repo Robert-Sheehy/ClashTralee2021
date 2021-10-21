@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragonScript : MonoBehaviour,IHealth
+public class DragonScript : CharacterScript
 {
     enum Character_states { Idle, Move_to_Target, Attack, Death }
     int DPS = 20;
@@ -16,11 +16,14 @@ public class DragonScript : MonoBehaviour,IHealth
 
     Vector3 velocity;
     private float character_speed = 1.5f;
+    internal float Melee_Distance = 10;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-
+        transform.position = new Vector3(27, 10, -10);
     }
 
     // Update is called once per frame
@@ -31,13 +34,12 @@ public class DragonScript : MonoBehaviour,IHealth
 
             case Character_states.Idle:
 
-
                 break;
 
             case Character_states.Move_to_Target:
 
 
-                if (within_melee_range(current_target))
+                if (within_range(current_target))
                 {
                     my_state = Character_states.Attack;
                     attack_timer = 0;
@@ -73,7 +75,7 @@ public class DragonScript : MonoBehaviour,IHealth
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             current_target = FindObjectOfType<Building>();
             if (current_target)
@@ -109,9 +111,9 @@ public class DragonScript : MonoBehaviour,IHealth
         }
     }
 
-    private bool within_melee_range(Building current_target)
+    private bool within_range(Building current_target)
     {
-        return (Vector3.Distance(transform.position, current_target.transform.position) < current_target.Melee_distance);
+        return (Vector3.Distance(transform.position, current_target.transform.position) < current_target.Melee_distance + 20.0f);
     }
 
     public void takeDamage(int v)
