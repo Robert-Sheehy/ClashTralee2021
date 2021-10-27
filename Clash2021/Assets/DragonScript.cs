@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragonScript : CharacterScript
+public class DragonScript : CharacterScript 
 {
     enum Character_states { Idle, Move_to_Target, Attack, Death }
     int DPS = 20;
@@ -18,8 +18,6 @@ public class DragonScript : CharacterScript
     private float character_speed = 1.5f;
     internal float Melee_Distance = 10;
 
-    
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +27,7 @@ public class DragonScript : CharacterScript
     // Update is called once per frame
     void Update()
     {
+ 
         switch (my_state)
         {
 
@@ -58,6 +57,8 @@ public class DragonScript : CharacterScript
                 }
 
                 attack_timer -= Time.deltaTime;
+
+                
 
                 break;
 
@@ -125,4 +126,6 @@ public class DragonScript : CharacterScript
     {
         throw new NotImplementedException();
     }
+
+
 }
