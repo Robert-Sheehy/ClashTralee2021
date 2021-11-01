@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Building  : MonoBehaviour,IHealth
+public class Building  : Unit
 
 
 {
@@ -97,7 +97,9 @@ public class Building  : MonoBehaviour,IHealth
         }
     }
 
-
-
+    internal override void is_destroyed(Unit killed_unit)
+    {
+        throw new NotImplementedException();
+    }
 }
 
