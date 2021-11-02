@@ -5,22 +5,21 @@ using UnityEngine;
 
 public class CharacterScript:Unit
 {
-    enum Character_states { Idle, Move_to_Target, Attack, Death}
+    internal enum Character_states { Idle, Move_to_Target, Attack, Death}
 
-    Character_states my_state = Character_states.Idle;
+    internal Character_states my_state = Character_states.Idle;
     Renderer myRenderer;
     
 
 
-    Vector3 velocity;
-    private float character_speed = 3f;
+    internal Vector3 velocity;
+    internal float character_speed = 3f;
 
 
     // Start is called before the first frame update
     void Start()
     {
         DPS = 10;
-    
     }
 
     // Update is called once per frame
@@ -89,20 +88,8 @@ public class CharacterScript:Unit
 
 
 
-        }
-
-
-
-
-
-
-
-
-
-        
+        }    
     }
-
-
 
     internal void ImtheMan(Manager manager)
     {
@@ -120,7 +107,7 @@ public class CharacterScript:Unit
         }
     }
 
-    private bool within_melee_range(Unit current_target)
+    internal bool within_melee_range(Unit current_target)
     {
         return (Vector3.Distance(transform.position, current_target.transform.position) < current_target.Melee_distance);
     }
