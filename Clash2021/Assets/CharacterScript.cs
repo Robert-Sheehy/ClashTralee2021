@@ -3,30 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterScript : MonoBehaviour,IHealth
+public class CharacterScript:Unit
 {
     enum Character_states { Idle, Move_to_Target, Attack, Death}
-    int DPS = 10;
-    float attack_time_interval = 0.5f;
-    float attack_timer;
+
     Character_states my_state = Character_states.Idle;
     Renderer myRenderer;
-    private int MHP = 1000, CHP = 1000, _level = 0;
-    Building current_target;
-    bool dead;
+    
+
+
     Vector3 velocity;
     private float character_speed = 3f;
-    private Manager theManager;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        DPS = 10;
     
     }
 
     // Update is called once per frame
     void Update()
     {
+        print("Hello");
         switch (my_state)
         {
 
@@ -95,43 +95,21 @@ public class CharacterScript : MonoBehaviour,IHealth
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            current_target = FindObjectOfType<Building>();
-            if (current_target)
-            {
-                assign_target(current_target);
-
-            }
-        }
 
 
 
 
-
-
-
-
-
-            if (Input.GetKey(KeyCode.DownArrow)) velocity = Vector3.back;
-            if (Input.GetKey(KeyCode.LeftArrow)) velocity = Vector3.left;
-            if (Input.GetKey(KeyCode.RightArrow)) velocity = Vector3.right;
-            if (Input.GetKey(KeyCode.UpArrow)) velocity = Vector3.forward;
         
     }
 
-    internal void is_destroyed(Building building)
-    {
-        if (current_target == building)
-            my_state = Character_states.Idle;
-    }
+
 
     internal void ImtheMan(Manager manager)
     {
         theManager = manager;
     }
 
-    public void assign_target(Building current_target)
+    public void assign_target(Unit current_target)
     {
         if ((my_state == Character_states.Idle)  || (my_state == Character_states.Move_to_Target))
         {
@@ -142,24 +120,24 @@ public class CharacterScript : MonoBehaviour,IHealth
         }
     }
 
-    private bool within_melee_range(Building current_target)
+    private bool within_melee_range(Unit current_target)
     {
         return (Vector3.Distance(transform.position, current_target.transform.position) < current_target.Melee_distance);
     }
 
-    public void repair(int v)
+    internal override void is_destroyed(Unit killed_unit)
     {
-        throw new System.NotImplementedException();
+        if (current_target == killed_unit)
+            my_state = Character_states.Idle;
     }
 
-    public void takeDamage(int how_much_damage)
+    public override void takeDamage(int how_much_damage)
     {
-        Debug.Log("Im being damaged");
-        CHP -= how_much_damage;
-        if (CHP <= 0)
-        {
-            dead= true;
-            Debug.Log("Dead");
-        }
+        throw new NotImplementedException();
+    }
+
+    public override void repair(int v)
+    {
+        throw new NotImplementedException();
     }
 }
