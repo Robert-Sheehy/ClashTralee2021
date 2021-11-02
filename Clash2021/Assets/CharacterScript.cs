@@ -19,12 +19,14 @@ public class CharacterScript:Unit
     // Start is called before the first frame update
     void Start()
     {
+        DPS = 10;
     
     }
 
     // Update is called once per frame
     void Update()
     {
+        print("Hello");
         switch (my_state)
         {
 
@@ -129,5 +131,13 @@ public class CharacterScript:Unit
             my_state = Character_states.Idle;
     }
 
+    public override void takeDamage(int how_much_damage)
+    {
+        throw new NotImplementedException();
+    }
 
+    public override void repair(int v)
+    {
+        throw new NotImplementedException();
+    }
 }

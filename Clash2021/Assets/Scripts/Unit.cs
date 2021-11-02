@@ -26,22 +26,12 @@ public abstract class Unit : MonoBehaviour, IHealth
     }
 
 
-    public void takeDamage(int how_much_damage)
-    {
-        Debug.Log("Im being damaged");
-        CHP -= how_much_damage;
-        if (CHP <= 0)
-        {
-            dead = true;
-            Debug.Log("Dead");
-        }
-    }
+    public abstract void takeDamage(int how_much_damage);
 
 
-    public void repair(int v)
-    {
-        throw new System.NotImplementedException();
-    }
+
+    public abstract void repair(int v);
+ 
 
     internal abstract void is_destroyed(Unit killed_unit);
 
