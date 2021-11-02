@@ -133,11 +133,15 @@ public class CharacterScript:Unit
 
     public override void takeDamage(int how_much_damage)
     {
-        throw new NotImplementedException();
+        CHP -= how_much_damage;
+       
+       
     }
 
     public override void repair(int v)
     {
-        throw new NotImplementedException();
+        CHP += v;
+        if (CHP > MHP)
+            CHP = MHP;
     }
 }
