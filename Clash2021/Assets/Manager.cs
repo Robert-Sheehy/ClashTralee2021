@@ -7,6 +7,7 @@ public class Manager : MonoBehaviour
 
     public GameObject character_prefab_template;
     public GameObject townhall_template;
+    public GameObject Cannon_Template;
 
 
     List<CharacterScript> allUnits;
@@ -22,6 +23,19 @@ public class Manager : MonoBehaviour
         {
             new_buildingScript.ImtheMan(this);
             allBuildings.Add(new_buildingScript);
+        }
+    }
+
+    internal void AddCannon(Vector3 position)
+    {
+        GameObject new_CannonGO = Instantiate(Cannon_Template,
+                position, Quaternion.identity);
+        CannonScript new_CannonScript = new_CannonGO.GetComponent<CannonScript>();
+
+        if (new_CannonScript)
+        {
+            new_CannonScript.ImtheMan(this);
+            allBuildings.Add(new_CannonScript);
         }
     }
 
@@ -72,8 +86,22 @@ public class Manager : MonoBehaviour
                  allBuildings.Add(new_buildingScript);
             }
         }
-        
-        if(Input.GetKeyDown(KeyCode.X))
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject new_CannonGO = Instantiate(Cannon_Template,
+                           new Vector3(Random.Range(-30f, 30f), 0, Random.Range(-30f, 30f)), Quaternion.identity);
+            CannonScript new_CannonScript = new_CannonGO.GetComponent<CannonScript>();
+
+            if (new_CannonScript)
+            {
+                new_CannonScript.ImtheMan(this);
+                allBuildings.Add(new_CannonScript);
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
         {
           
         }
