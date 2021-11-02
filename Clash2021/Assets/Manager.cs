@@ -25,9 +25,17 @@ public class Manager : MonoBehaviour
         }
     }
 
-    internal void AddChar(Vector3 vector3)
+    internal void AddChar(Vector3 position)
     {
-        throw new System.NotImplementedException();
+        GameObject new_charGO = Instantiate(character_prefab_template, position, Quaternion.identity);
+        CharacterScript new_characterScript = new_charGO.GetComponent<CharacterScript>();
+
+        if(new_characterScript)
+        {
+            new_characterScript.ImtheMan(this);
+            allUnits.Add(new_characterScript);
+        }
+
     }
 
     // Start is called before the first frame update
@@ -102,26 +110,38 @@ public class Manager : MonoBehaviour
         return   nearest;
     }
 
-    public void AOE_Attack(Vector3 position, float radius, int damage, bool isBuilding)
+    public void AOE_Attack(Vector3 position, float radius, int damage, bool attackBuilding)
     {
-      
 
-        foreach (Building next_building in allBuildings)
+        if (attackBuilding == true)
         {
-            if ( Vector3.Distance(position, next_building.transform.position) < radius)
+
+            foreach (Building next_building in allBuildings)
             {
+                 if (Vector3.Distance(position, next_building.transform.position) < radius)
+                 {
+
                  next_building.takeDamage(damage);
-            }
-            
-        }
-        foreach (CharacterScript character in allUnits)
-        {
-            if (Vector3.Distance(position, character.transform.position) < radius)
-            {
-                character.takeDamage(damage);
-            }
-        }
 
+                 }
+            
+            }
+
+        }
+        else
+        { 
+            foreach (CharacterScript character in allUnits)
+            {
+
+             if (Vector3.Distance(position, character.transform.position) < radius)
+                {
+
+                character.takeDamage(damage);
+
+                }
+
+            }
+        }
     }
 
 }
