@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Building  : MonoBehaviour,IHealth
+public class Building  : Unit
 
 
 {
 
     Renderer myRenderer;
-    private int MHP = 1000, CHP = 1000, _level = 0;
-
+    
     public int Level
     {
         get { return _level + 1; }
@@ -24,20 +23,25 @@ public class Building  : MonoBehaviour,IHealth
         }
     }
 
-    public float Melee_distance { get { return 5.0f; } }
 
     private bool destroyed = false;
 
     List<GameObject> all_levels;
     GameObject current_active_model;
 
-    private Manager theManager;
+
     internal float attack_distance;
 
 
     // Start is called before the first frame update
     void Start()
-    { all_levels = new List<GameObject>();
+
+
+    {
+        Melee_distance = 5f;
+        
+        
+        all_levels = new List<GameObject>();
         for (int i = 0; i<transform.childCount;i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
@@ -60,19 +64,8 @@ public class Building  : MonoBehaviour,IHealth
 
 
 
-    public void takeDamage(int how_much_damage)
 
-    {
-        myRenderer.material.color = Color.blue;
-        CHP -= how_much_damage;
-        if (CHP <= 0)
-        {
-            destroyed = true;
-            myRenderer.material.color = Color.red;
-            theManager.Im_Dead(this);
-            Destroy(gameObject);
-        }
-    }
+
 
     internal void ImtheMan(Manager manager)
     {
@@ -86,8 +79,27 @@ public class Building  : MonoBehaviour,IHealth
 
     }
 
-    public void repair(int how_much_heal)
 
+
+    internal override void is_destroyed(Unit killed_unit)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void takeDamage(int how_much_damage)
+    {
+        myRenderer.material.color = Color.blue;
+        CHP -= how_much_damage;
+        if (CHP <= 0)
+        {
+            destroyed = true;
+            myRenderer.material.color = Color.red;
+            theManager.Im_Dead(this);
+            Destroy(gameObject);
+        }
+    }
+
+    public override void repair(int how_much_heal)
     {
         CHP += how_much_heal;
         if (CHP > MHP)
@@ -96,8 +108,5 @@ public class Building  : MonoBehaviour,IHealth
             myRenderer.material.color = Color.white;
         }
     }
-
-
-
 }
 
