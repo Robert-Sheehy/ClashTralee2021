@@ -89,7 +89,7 @@ public class Manager : MonoBehaviour
 
     internal void Im_Dead(Building building)
     {
-        allBuildings.Remove(building);
+        //allBuildings.Remove(building);
         foreach (CharacterScript character in allUnits)
             character.is_destroyed(building);
 
@@ -127,6 +127,7 @@ public class Manager : MonoBehaviour
             
             }
 
+
         }
         else
         { 
@@ -142,6 +143,17 @@ public class Manager : MonoBehaviour
 
             }
         }
+        allBuildings = clean_up(allBuildings);
+    }
+
+    private List<Building> clean_up(List<Building> allBuildings)
+    {
+        List<Building> out_list = new List<Building>();
+
+        foreach (Building b in allBuildings)
+            if (b.gameObject) out_list.Add(b);
+
+        return out_list;
     }
 
 }
