@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonScript : MonoBehaviour, IHealth
+public class CannonScript :Building, IHealth
 {
     enum building_states { Idle, Attack, Death }
     int DPS = 100;
@@ -11,6 +11,8 @@ public class CannonScript : MonoBehaviour, IHealth
     float attack_timer;
     float CannonRange = 7.0f;
     building_states my_state = building_states.Idle;
+    public GameObject CannonBall;
+    Vector3 position;
 
     private int MHP = 1000, CHP = 1000, _level = 0;
     CharacterScript current_target;
@@ -41,6 +43,7 @@ public class CannonScript : MonoBehaviour, IHealth
 
                 if (attack_timer <= 0f)
                 {
+                    GameObject New_CannonBall = Instantiate(CannonBall, position, Quaternion.identity);
                     current_target.takeDamage((int)((float)DPS * attack_time_interval));
                     attack_timer = attack_time_interval;
 
@@ -70,7 +73,7 @@ public class CannonScript : MonoBehaviour, IHealth
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             current_target = FindObjectOfType<CharacterScript>();
             if (current_target)
@@ -94,7 +97,7 @@ public class CannonScript : MonoBehaviour, IHealth
     private bool within_attack_range(CharacterScript current_target)
     {
         return (Vector3.Distance(transform.position, current_target.transform.position) < CannonRange);
-    
+  
     }
 
     public void repair(int v)

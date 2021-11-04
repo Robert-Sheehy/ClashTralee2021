@@ -7,6 +7,7 @@ public class Manager : MonoBehaviour
 
     public GameObject character_prefab_template;
     public GameObject townhall_template;
+    public GameObject Cannon_Template;
 
 
     List<CharacterScript> allUnits;
@@ -25,17 +26,22 @@ public class Manager : MonoBehaviour
         }
     }
 
-    internal void AddChar(Vector3 position)
+    internal void AddCannon(Vector3 position)
     {
-        GameObject new_charGO = Instantiate(character_prefab_template, position, Quaternion.identity);
-        CharacterScript new_characterScript = new_charGO.GetComponent<CharacterScript>();
+        GameObject new_CannonGO = Instantiate(Cannon_Template,
+                position, Quaternion.identity);
+        CannonScript new_CannonScript = new_CannonGO.GetComponent<CannonScript>();
 
-        if(new_characterScript)
+        if (new_CannonScript)
         {
-            new_characterScript.ImtheMan(this);
-            allUnits.Add(new_characterScript);
+            new_CannonScript.ImtheMan(this);
+            allBuildings.Add(new_CannonScript);
         }
+    }
 
+    internal void AddChar(Vector3 vector3)
+    {
+        throw new System.NotImplementedException();
     }
 
     // Start is called before the first frame update
@@ -80,8 +86,22 @@ public class Manager : MonoBehaviour
                  allBuildings.Add(new_buildingScript);
             }
         }
-        
-        if(Input.GetKeyDown(KeyCode.X))
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject new_CannonGO = Instantiate(Cannon_Template,
+                           new Vector3(Random.Range(-30f, 30f), 0, Random.Range(-30f, 30f)), Quaternion.identity);
+            CannonScript new_CannonScript = new_CannonGO.GetComponent<CannonScript>();
+
+            if (new_CannonScript)
+            {
+                new_CannonScript.ImtheMan(this);
+                allBuildings.Add(new_CannonScript);
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
         {
           
         }
@@ -110,39 +130,26 @@ public class Manager : MonoBehaviour
         return   nearest;
     }
 
-    public void AOE_Attack(Vector3 position, float radius, int damage, bool attackBuilding)
+    public void AOE_Attack(Vector3 position, float radius, int damage, bool isBuilding)
     {
+      
 
-        if (attackBuilding == true)
+        foreach (Building next_building in allBuildings)
         {
-
-            foreach (Building next_building in allBuildings)
+            if ( Vector3.Distance(position, next_building.transform.position) < radius)
             {
-                 if (Vector3.Distance(position, next_building.transform.position) < radius)
-                 {
-
                  next_building.takeDamage(damage);
-
-                 }
+            }
             
-            }
-
-
         }
-        else
-        { 
-            foreach (CharacterScript character in allUnits)
+        foreach (CharacterScript character in allUnits)
+        {
+            if (Vector3.Distance(position, character.transform.position) < radius)
             {
-
-             if (Vector3.Distance(position, character.transform.position) < radius)
-                {
-
                 character.takeDamage(damage);
-
-                }
-
             }
         }
+
         allBuildings = clean_up(allBuildings);
     }
 
@@ -154,6 +161,8 @@ public class Manager : MonoBehaviour
             if (b.gameObject) out_list.Add(b);
 
         return out_list;
+
+
     }
 
 }
