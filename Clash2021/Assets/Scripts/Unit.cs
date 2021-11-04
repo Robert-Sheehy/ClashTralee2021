@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour, IHealth
 {
-    internal  Manager theManager;
+    internal Manager theManager;
     internal float Melee_distance;
     internal int DPS;
     internal float attack_time_interval = 0.5f;
@@ -16,13 +16,13 @@ public abstract class Unit : MonoBehaviour, IHealth
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -31,8 +31,10 @@ public abstract class Unit : MonoBehaviour, IHealth
 
 
     public abstract void repair(int v);
- 
+
 
     internal abstract void is_destroyed(Unit killed_unit);
+
+    
 
 }
