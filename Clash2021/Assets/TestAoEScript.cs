@@ -23,13 +23,13 @@ public class TestAoEScript : MonoBehaviour
                 theManager.AddTHAt(new Vector3(x, 0, z));
 
         if (Input.GetKeyDown(KeyCode.Z))
-            for (float a = 10; a < 21f; a += 5)
+            for (float a = 0; a < 21f; a += 5)
                 for (float b = -20; b < 50; b += 7)
                     theManager.AddChar(new Vector3(a, 0, b));
 
 
 
         if (Input.GetKeyDown(KeyCode.Return))
-            theManager.AOE_Attack(new Vector3(0, 0, 0), 15, 50,false);
+            theManager.AOE_Attack(new Vector3(0, 0, 0), 15, 100,true);
     }
 }
